@@ -6,9 +6,9 @@
 package bean;
 
 import dao.UsuarioDao;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import model.Usuario;
 import util.FacesUtils;
@@ -20,19 +20,29 @@ import util.FacesUtils;
 
 @ManagedBean
 @Named
-@RequestScoped
+@ViewScoped
 public class UsuarioBean {
     
-    private Usuario usuario = new Usuario();
+    private Usuario usuario;
     private String confirmaSenha;
+
+    public UsuarioBean() {
+        usuario = (Usuario) FacesUtils.getAtributoFlash("currentUsuario");
+        
+        if (usuario == null) usuario = new Usuario();
+    }
     
     public String novo() {
-        this.usuario = new Usuario();
-        
         return "usuario";
     }
     
+    public String administrativo() {
+        return "/admin/principal";
+    }
+    
     public String salvar() {
+        
+        Boolean novoUsuario = usuario.getIdUsuario() == null;
         
         if (!this.usuario.getSenha().equals(this.confirmaSenha)) {
             FacesUtils.mensagem("A senha não foi confirmada corretamente.", FacesMessage.SEVERITY_WARN);
@@ -44,7 +54,11 @@ public class UsuarioBean {
         UsuarioDao usuarioDao = new UsuarioDao();
         usuarioDao.salvar(this.usuario);
         
-        return "usuarioSucesso";
+        if (novoUsuario) {
+            FacesUtils.putAtributoFlash("currentUsuario", this.usuario);
+            return "usuarioSucesso";
+        }
+        else return "/admin/principal";
     }
 
     public Usuario getUsuario() {

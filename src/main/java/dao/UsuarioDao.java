@@ -39,7 +39,7 @@ public class UsuarioDao extends GenericDao {
     }
     
     public List<Usuario> listar() {
-        String sql = "select u from Usuairo u";
+        String sql = "select u from Usuario u";
         
         return getPureList(Usuario.class, sql);
     }
