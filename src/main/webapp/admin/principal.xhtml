@@ -22,11 +22,11 @@
                 
                 <h:column>
                     <h:commandLink action="#{administrativoBean.ativar()}" rendered="#{!usuario.ativo}">
-                        <h:outputText value="Ativar" />
+                        <h:graphicImage library="images" name="usuario_ativo_false.png" style="border: 0" />
                         <f:setPropertyActionListener target="#{administrativoBean.currentUsuario}" value="#{usuario}" />
                     </h:commandLink>
                     <h:commandLink action="#{administrativoBean.desativar()}" rendered="#{usuario.ativo}">
-                        <h:outputText value="Desativar" />
+                        <h:graphicImage library="images" name="usuario_ativo_true.png" style="border: 0" />
                         <f:setPropertyActionListener target="#{administrativoBean.currentUsuario}" value="#{usuario}" />
                     </h:commandLink>
                 </h:column>
@@ -48,7 +48,7 @@
                 
                 <h:column>
                     <h:commandLink action="#{administrativoBean.editar()}">
-                        <h:outputText value="Editar" />
+                        <h:graphicImage library="images" name="editar16.png" style="border: 0" />
                         <f:setPropertyActionListener target="#{administrativoBean.currentUsuario}" value="#{usuario}" />
                     </h:commandLink>
                 </h:column>
@@ -56,7 +56,7 @@
                 <h:column>
                     <h:commandLink action="#{administrativoBean.excluir()}"
                                    onclick="if (!confirm('Confirma a exclusão do usuário #{usuario.nome}?')) return false;">
-                        <h:outputText value="Excluir" />
+                        <h:graphicImage library="images" name="excluir16.png" style="border: 0" />
                         <f:setPropertyActionListener target="#{administrativoBean.currentUsuario}" value="#{usuario}" />
                     </h:commandLink>
                 </h:column>
